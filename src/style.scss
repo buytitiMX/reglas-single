@@ -364,6 +364,10 @@
 	opacity: .6;
 }
 
+.woocommerce-breadcrumb{
+	display: none;
+}
+
 @media screen and (max-width: 850px) {
     #modal-opciones-envio div,
     #modal-opciones-pago div,

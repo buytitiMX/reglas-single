@@ -471,6 +471,4 @@ function mover_parrafo_y_tabla_js() {
     </script>
     <?php
 }
-
-
 add_action('wp_footer', 'mover_parrafo_y_tabla_js');
