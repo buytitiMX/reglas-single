@@ -1,0 +1,502 @@
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/style.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+.wp-block-buytiti-buytitiregladeprecios {
+  background-color: #21759b;
+  color: #fff;
+  padding: 2px;
+}
+
+.button.product_type_simple.add_to_cart_button.ajax_add_to_cart {
+  background-color: #ff7942 !important;
+}
+
+.single_add_to_cart_button.button.alt {
+  background-color: #ff7942 !important;
+  width: 25rem !important;
+}
+
+#opciones-envio {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  margin: auto;
+  width: 13rem;
+}
+
+.img-envio {
+  background-color: #f0f0f0;
+  margin-right: 1rem;
+  width: 2rem;
+}
+
+#envio-container {
+  margin-right: 1.5rem;
+}
+
+#opciones-envio:hover {
+  cursor: pointer;
+}
+
+#garantia-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.garantia-div {
+  align-items: center;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  height: 2.5rem;
+  margin-right: -3rem;
+  width: 13rem;
+}
+
+.garantia-div:hover {
+  cursor: pointer;
+}
+
+.img-garantia {
+  background-color: #f0f0f0;
+  border-radius: 2rem;
+  height: 2rem !important;
+  width: 2rem;
+}
+
+.garantia-text {
+  background-color: #24a4a4;
+  border-radius: 15px;
+  color: #fff;
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+  margin-top: 1.5rem;
+  text-align: center;
+  width: 7rem;
+}
+
+.container-textgaranty,
+.container-textprotegida {
+  margin-top: -1.3rem;
+}
+
+.protegida-div {
+  align-items: center;
+  border-radius: 6px;
+  color: #24a4a4;
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  justify-content: center;
+  margin-right: -0.6rem;
+}
+
+.protegida-div:hover {
+  cursor: pointer;
+}
+
+.img-protegida {
+  background-color: #f0f0f0;
+  width: 2rem;
+}
+
+.protegida-text {
+  background-color: #24a4a4;
+  border-radius: 15px;
+  color: #fff;
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+  margin-top: 1.5rem;
+  text-align: center;
+  width: 7rem;
+}
+
+.img-mercadopago {
+  width: 2.5rem;
+}
+
+.img-mercadopago,
+.img-oxxo {
+  border-radius: 1rem;
+  margin-right: 1.5rem;
+}
+
+.img-oxxo {
+  width: 4rem;
+}
+
+.img-mastercard,
+.img-visa {
+  margin-right: 1.5rem;
+  width: 3rem;
+}
+
+.img-mastercard {
+  border-radius: 1rem;
+}
+
+#pagos-container {
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+#pagos-container:hover {
+  cursor: pointer;
+}
+
+.img-spei {
+  border-radius: 1rem;
+  margin-right: 1rem;
+  width: 4rem;
+}
+
+#modal-opciones-envio {
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+#modal-opciones-envio div {
+  background-color: #fefefe;
+  border: 1px solid #888;
+  margin: 15% auto;
+  padding: 20px;
+  width: 60%;
+}
+
+#opciones-envio-text {
+  background-color: #24a4a4;
+  border-radius: 15px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  height: 1.5rem;
+  margin-top: 0.2rem;
+  text-align: center;
+  width: 8rem;
+}
+
+.text-envios {
+  display: flex;
+  margin-left: 0.3rem;
+  margin-top: -0.2rem;
+}
+
+#cerrar-modal {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+#cerrar-modal:hover {
+  cursor: pointer;
+}
+
+.table-envio {
+  border: 1px solid coral;
+  position: relative;
+}
+
+.cabecera-envio {
+  background-color: #f8a34f;
+}
+
+.aviso {
+  display: flex;
+  font-weight: 700;
+  justify-content: center;
+}
+
+#modal-opciones-pago {
+  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+#modal-opciones-pago div {
+  background-color: #fefefe;
+  border: 1px solid #888;
+  margin: 15% auto;
+  padding: 20px;
+  width: 60%;
+}
+
+#cerrar-modal-pago {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+#cerrar-modal-pago:focus,
+#cerrar-modal-pago:hover {
+  color: #000;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.table-pago {
+  border: 1px solid coral;
+  position: relative;
+}
+
+.cabecera-pago {
+  background-color: #f8a34f;
+}
+
+.container-bloque1 {
+  background-color: #f4cda7;
+  border: 1px solid coral;
+}
+
+.container-oxxo,
+.visaMaster-container {
+  text-align: center;
+}
+
+.img-VisaMasterPago {
+  margin-right: 2rem !important;
+  width: 4rem !important;
+}
+
+.img-VisaMasterPago2 {
+  width: 3rem;
+}
+
+.speiBancos-container {
+  text-align: center;
+}
+
+.img-BancosPago,
+.img-speiBancosPago {
+  width: 7rem;
+}
+
+.container-mp {
+  text-align: center;
+}
+
+.img-mpPago {
+  width: 3rem;
+}
+
+.ast-loop-product__link {
+  display: none !important;
+}
+
+#modal-garantia,
+#modal-protegida {
+  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  border: 10px solid #f8a34f;
+  margin: 15% auto;
+  padding: 20px;
+  width: 40%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: -1.5rem;
+}
+
+.close:focus,
+.close:hover {
+  color: #000;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.img-buytiti {
+  background-color: #eee;
+  border-radius: 3rem;
+  display: flex;
+  margin: auto;
+  width: 10rem;
+}
+
+.texto-modal {
+  color: #000;
+  text-align: justify;
+}
+
+.boton-garantias {
+  background-color: #4caf50;
+  border-radius: 5px;
+  color: #fff;
+  display: inline-block;
+  display: flex;
+  font-size: 16px;
+  justify-content: center;
+  margin: auto;
+  padding: 10px 20px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  width: 14rem;
+}
+
+#envio-caja-container {
+  display: flex;
+  margin-left: -1.7rem;
+  margin-top: -1rem;
+  position: relative;
+}
+
+.single_add_to_cart_button.button.alt {
+  border-radius: 20px 0 20px 0;
+  font-weight: 700;
+  padding: 0.5rem !important;
+  width: 10rem !important;
+}
+
+.ast-stock-detail,
+.stock.in-stock {
+  color: #24a4a4 !important;
+}
+
+.stock.in-stock {
+  font-weight: 700;
+}
+
+.sku_wrapper {
+  color: #24a4a4;
+  font-weight: 700 !important;
+}
+
+.product_title.entry-title {
+  color: #545555;
+  font-size: 2rem !important;
+  font-weight: 700;
+}
+
+.posted_in {
+  color: #24a4a4 !important;
+  font-weight: 700 !important;
+}
+
+.woocommerce-js div.product .product_meta > span > * {
+  color: #ff7942 !important;
+  font-weight: 700 !important;
+}
+
+.woocommerce-breadcrumb,
+.woocommerce-js .woocommerce-breadcrumb a {
+  color: #24a4a4 !important;
+}
+
+.woocommerce-js div.product div.summary .single-product-category {
+  display: none !important;
+}
+
+.discounted-price {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 850px) {
+  #modal-opciones-envio div,
+  #modal-opciones-pago div,
+  .modal-content {
+    width: 90% !important;
+  }
+  #caja-cerrada {
+    margin-right: 12.3rem;
+  }
+  #opciones-envio {
+    margin-left: 13.3rem;
+  }
+}
+@media screen and (max-width: 400px) {
+  #table-precios {
+    margin-left: -0.5rem;
+    width: 2rem !important;
+  }
+  .single_add_to_cart_button.button.alt {
+    width: 23rem !important;
+  }
+  #opciones-envio {
+    justify-content: end;
+    margin-left: 1rem;
+    margin-right: 2rem;
+    width: 11.2rem !important;
+  }
+  #caja-cerrada {
+    margin-right: -3rem !important;
+    width: 11rem !important;
+  }
+  .modal-content {
+    width: 88% !important;
+  }
+  #modal-opciones-envio div,
+  #modal-opciones-pago div {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 500px) {
+  #table-precios {
+    margin-left: -0.5rem;
+    width: 22rem !important;
+  }
+  .single_add_to_cart_button.button.alt {
+    width: 23rem !important;
+  }
+  #opciones-envio {
+    justify-content: center;
+    margin-left: 1rem;
+    margin-right: 2rem;
+    width: 12.7rem;
+  }
+  #caja-cerrada {
+    margin-right: -3rem;
+    width: 12.5rem;
+  }
+  .modal-content {
+    width: 88% !important;
+  }
+  #modal-opciones-envio div,
+  #modal-opciones-pago div {
+    width: 100%;
+  }
+  #modal-opciones-pago div {
+    width: 90% !important;
+  }
+}
+
+/*# sourceMappingURL=style-index.css.map*/

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "buytiti/buytitiregladeprecios",
+  "version": "0.1.0",
+  "title": "Buytiti - Regla de Precios",
+  "category": "widgets",
+  "icon": "cloud-saved",
+  "description": "Este plugin añade el tabulador de regla de precios asi como edita el single product",
+  "example": {},
+  "supports": {
+    "html": false
+  },
+  "textdomain": "buytitiregladeprecios",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}
