@@ -41,24 +41,24 @@ function wc_custom_discount( $cart ) {
     $total_discount = 0;
     $category_counts = array();
 
-    // Contar los productos por categoría
+    // Contar los productos por categoría contenedora
     foreach ( $cart->get_cart() as $cart_item ) {
         $product = $cart_item['data'];
         $categories = get_the_terms( $product->get_id(), 'product_cat' );
 
         if ( $categories ) {
-            foreach ( $categories as $category ) {
-                // Obtener las categorías padres
-                $parent_categories = get_ancestors( $category->term_id, 'product_cat' );
-                $all_related_categories = array_merge( array( $category->term_id ), $parent_categories );
+            // Ordenar las categorías por profundidad, de menos profunda a más profunda
+            usort($categories, function($a, $b) {
+                return count(get_ancestors($a->term_id, 'product_cat')) - count(get_ancestors($b->term_id, 'product_cat'));
+            });
 
-                foreach ( $all_related_categories as $cat_id ) {
-                    if ( ! isset( $category_counts[ $cat_id ] ) ) {
-                        $category_counts[ $cat_id ] = 0;
-                    }
-                    $category_counts[ $cat_id ] += $cart_item['quantity'];
-                }
+            // Obtener la categoría contenedora (la menos profunda)
+            $container_category = $categories[0];
+
+            if ( ! isset( $category_counts[ $container_category->term_id ] ) ) {
+                $category_counts[ $container_category->term_id ] = 0;
             }
+            $category_counts[ $container_category->term_id ] += $cart_item['quantity'];
         }
     }
 
@@ -134,54 +134,6 @@ function wc_display_discount_table() {
     return ''; // Devuelve una cadena vacía si el producto está en oferta o no está definido.
 }
 
-add_action( 'woocommerce_before_calculate_totals', 'wc_apply_product_discount', 10, 1 );
-function wc_apply_product_discount( $cart ) {
-    global $category_counts; // Acceder a la variable global $category_counts
-
-    if ( is_admin() && ! defined( 'DOING_AJAX' ) )
-        return;
-
-    foreach ( $cart->get_cart() as $cart_item ) {
-        $product = $cart_item['data'];
-        $quantity = $cart_item['quantity'];
-        $categories = get_the_terms( $product->get_id(), 'product_cat' );
-
-        if ( $product->is_on_sale() || ! $categories ) {
-            continue; // Si el producto está en oferta o no tiene categoría, no aplicar el descuento
-        }
-
-        $discount = 0;
-        foreach ( $categories as $category ) {
-            // Obtener las categorías padres
-            $parent_categories = get_ancestors( $category->term_id, 'product_cat' );
-            $all_related_categories = array_merge( array( $category->term_id ), $parent_categories );
-
-            foreach ( $all_related_categories as $cat_id ) {
-                if ( isset($category_counts[ $cat_id ]) && $category_counts[ $cat_id ] >= 21 ) {
-                    $discount = $cart_item['line_subtotal'] * 0.20;
-                } elseif ( isset($category_counts[ $cat_id ]) && $category_counts[ $cat_id ] >= 16 ) {
-                    $discount = $cart_item['line_subtotal'] * 0.15;
-				} elseif ( isset($category_counts[ $cat_id ]) && $category_counts[ $cat_id ] >= 9 ) {
-                    $discount = $cart_item['line_subtotal'] * 0.10;
-                } elseif ( isset($category_counts[ $cat_id ]) && $category_counts[ $cat_id ] >= 4 ) {
-                    $discount = $cart_item['line_subtotal'] * 0.05;
-                }
-                if ( $discount > 0 ) {
-                    break;
-                }
-            }
-
-            if ( $discount > 0 ) {
-                break;
-            }
-        }
-		if ( $discount > 0 ) {
-            $new_price = $product->get_price() - ($discount / $quantity);
-            $product->set_price( $new_price );
-        }
-    }
-}
-
 add_filter( 'woocommerce_cart_item_price', 'wc_display_discounted_unit_price', 10, 3 );
 function wc_display_discounted_unit_price( $price, $cart_item, $cart_item_key ) {
     global $category_counts; // Acceder a la variable global $category_counts
@@ -216,13 +168,11 @@ function wc_display_discounted_unit_price( $price, $cart_item, $cart_item_key ) 
         }
 
         if ( $discount > 0 ) {
-            break;
+            // Guardar el precio con descuento en los metadatos del producto
+            $discounted_price = $product->get_price() - $discount;
+            update_post_meta( $product->get_id(), 'precio_con_descuento', $discounted_price );
+            return '<del class="discounted-price">' . wc_price( $product->get_price() ) . '</del> ' . wc_price( $discounted_price );
         }
-    }
-
-    if ( $discount > 0 ) {
-        $discounted_price = $product->get_price() - $discount;
-		return '<del class="discounted-price">' . wc_price( $product->get_price() ) . '</del> ' . wc_price( $discounted_price );
     }
 
     return $price;
@@ -260,15 +210,77 @@ function wc_display_discounted_subtotal( $subtotal, $product, $quantity, $cart )
         }
 
         if ( $discount > 0 ) {
-            break;
+            // Guardar el subtotal con descuento en los metadatos del producto
+            $original_subtotal = $quantity * $product->get_price();
+            $discounted_subtotal = $original_subtotal - $discount;
+            update_post_meta( $product->get_id(), 'subtotal_con_descuento', $discounted_subtotal );
+            return '<del class="discounted-price">' . wc_price( $original_subtotal ) . '</del> ' . wc_price( $discounted_subtotal );
         }
     }
 
-    if ( $discount > 0 ) {
-        $original_subtotal = $quantity * $product->get_price();
-        $discounted_subtotal = $original_subtotal - $discount;
-		return '<del class="discounted-price">' . wc_price( $original_subtotal ) . '</del> ' . wc_price( $discounted_subtotal );    }
     return $subtotal;
+}
+
+// Crear un nuevo endpoint para exponer los precios con descuento
+add_action('rest_api_init', function () {
+  register_rest_route('miplugin/v1', '/descuento/(?P<id>\d+)', array(
+    'methods' => 'GET',
+    'callback' => 'mi_funcion_descuento',
+  ));
+});
+
+function mi_funcion_descuento($data) {
+  $post_id = $data['id'];
+  // Aquí puedes obtener el precio y el subtotal con descuento de tu producto
+  $precio_con_descuento = get_post_meta($post_id, 'precio_con_descuento', true);
+  $subtotal_con_descuento = get_post_meta($post_id, 'subtotal_con_descuento', true);
+  return array(
+    'precio_con_descuento' => $precio_con_descuento,
+    'subtotal_con_descuento' => $subtotal_con_descuento,
+  );
+}
+
+// Guardar el precio con descuento y el subtotal con descuento en los metadatos de la orden
+add_action( 'woocommerce_checkout_create_order_line_item', 'guardar_precio_descuento_en_orden', 10, 4 );
+function guardar_precio_descuento_en_orden( $item, $cart_item_key, $values, $order ) {
+    $product = $values['data'];
+    $precio_con_descuento = get_post_meta( $product->get_id(), 'precio_con_descuento', true );
+    $subtotal_con_descuento = get_post_meta( $product->get_id(), 'subtotal_con_descuento', true );
+
+    if ( $precio_con_descuento ) {
+        $item->add_meta_data( 'precio_con_descuento', $precio_con_descuento );
+    }
+
+    if ( $subtotal_con_descuento ) {
+        $item->add_meta_data( 'subtotal_con_descuento', $subtotal_con_descuento );
+    }
+}
+
+// Mostrar el precio con descuento y el subtotal con descuento en los detalles de la orden
+add_filter( 'woocommerce_order_item_get_formatted_meta_data', 'mostrar_precio_descuento_en_orden', 10, 2 );
+function mostrar_precio_descuento_en_orden( $formatted_meta, $item ) {
+    $precio_con_descuento = $item->get_meta( 'precio_con_descuento', true );
+    $subtotal_con_descuento = $item->get_meta( 'subtotal_con_descuento', true );
+
+    if ( $precio_con_descuento ) {
+        $formatted_meta[] = (object) array(
+            'key' => 'Precio con descuento',
+            'value' => wc_price( $precio_con_descuento ),
+            'display_key' => 'Precio con descuento',
+            'display_value' => wc_price( $precio_con_descuento ),
+        );
+    }
+
+    if ( $subtotal_con_descuento ) {
+        $formatted_meta[] = (object) array(
+            'key' => 'Subtotal con descuento',
+            'value' => wc_price( $subtotal_con_descuento ),
+            'display_key' => 'Subtotal con descuento',
+            'display_value' => wc_price( $subtotal_con_descuento ),
+        );
+    }
+
+    return $formatted_meta;
 }
 
 function agregar_parrafo_opciones_envio() {
